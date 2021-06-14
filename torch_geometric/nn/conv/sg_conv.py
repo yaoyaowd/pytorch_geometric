@@ -2,10 +2,10 @@ from typing import Optional
 from torch_geometric.typing import Adj, OptTensor
 
 from torch import Tensor
-from torch.nn import Linear
 from torch_sparse import SparseTensor, matmul
 from torch_geometric.nn.conv import MessagePassing
 from torch_geometric.nn.conv.gcn_conv import gcn_norm
+from torch_geometric.nn.dense.linear import Linear
 
 
 class SGConv(MessagePassing):

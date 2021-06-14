@@ -7,7 +7,8 @@ from torch_sparse import SparseTensor, matmul
 
 from torch_geometric.nn.conv import MessagePassing
 from torch_geometric.utils import degree
-from torch.nn import Linear, ModuleList
+from torch.nn import ModuleList
+from torch_geometric.nn.dense.linear import Linear
 
 
 class MFConv(MessagePassing):

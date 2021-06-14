@@ -1,13 +1,10 @@
 from torch_geometric.typing import Adj, Size, OptTensor
 
-import torch
 from torch import Tensor
-from torch.nn import Parameter
 from torch_sparse import SparseTensor, matmul, set_diag, sum
 from torch_geometric.nn.conv import MessagePassing
+from torch_geometric.nn.dense.linear import Linear
 from torch_geometric.utils import remove_self_loops, add_self_loops, degree
-
-from ..inits import glorot, zeros
 
 
 class ClusterGCNConv(MessagePassing):
@@ -46,20 +43,16 @@ class ClusterGCNConv(MessagePassing):
         self.diag_lambda = diag_lambda
         self.add_self_loops = add_self_loops
 
-        self.weight = Parameter(torch.Tensor(in_channels, out_channels))
-        self.root_weight = Parameter(torch.Tensor(in_channels, out_channels))
-
-        if bias:
-            self.bias = Parameter(torch.Tensor(out_channels))
-        else:
-            self.register_parameter('bias', None)
+        self.lin_out = Linear(in_channels, out_channels, bias=bias,
+                              weight_initializer='glorot')
+        self.lin_root = Linear(in_channels, out_channels, bias=False,
+                               weight_initializer='glorot')
 
         self.reset_parameters()
 
     def reset_parameters(self):
-        glorot(self.weight)
-        glorot(self.root_weight)
-        zeros(self.bias)
+        self.lin_out.reset_parameters()
+        self.lin_root.reset_parameters()
 
     def forward(self, x: Tensor, edge_index: Adj, size: Size = None) -> Tensor:
         """"""
@@ -90,10 +83,7 @@ class ClusterGCNConv(MessagePassing):
         # propagate_type: (x: Tensor, edge_weight: OptTensor)
         out = self.propagate(edge_index, x=x, edge_weight=edge_weight,
                              size=None)
-        out = out @ self.weight + x @ self.root_weight
-
-        if self.bias is not None:
-            out += self.bias
+        out = self.lin_out(out) + self.lin_root(x)
 
         return out
 

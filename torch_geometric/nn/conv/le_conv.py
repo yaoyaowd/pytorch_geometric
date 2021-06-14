@@ -1,5 +1,5 @@
-from torch.nn import Linear
 from torch_geometric.nn.conv import MessagePassing
+from torch_geometric.nn.dense.linear import Linear
 
 
 class LEConv(MessagePassing):

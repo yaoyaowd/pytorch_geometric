@@ -3,7 +3,7 @@ from torch_geometric.typing import PairTensor, Adj
 
 import torch
 from torch import Tensor
-from torch.nn import Linear
+from torch_geometric.nn.dense.linear import Linear
 from torch_sparse import SparseTensor, matmul
 from torch_geometric.nn.conv import MessagePassing
 

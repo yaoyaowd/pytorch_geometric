@@ -3,8 +3,9 @@ from torch_geometric.typing import PairTensor, Adj
 
 from torch import Tensor
 from torch.nn import Parameter
-from torch.nn import Linear, Sigmoid
+from torch.nn import Sigmoid
 from torch_geometric.nn.conv import MessagePassing
+from torch_geometric.nn.dense.linear import Linear
 
 from ..inits import zeros
 
