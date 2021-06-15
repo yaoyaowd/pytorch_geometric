@@ -48,7 +48,8 @@ class PNAConv(MessagePassing):
         examples/pna.py>`_.
 
     Args:
-        in_channels (int): Size of each input sample.
+        in_channels (int): Size of each input sample or -1 for lazy
+            initialization.
         out_channels (int): Size of each output sample.
         aggregators (list of str): Set of aggregation function identifiers,
             namely :obj:`"sum"`, :obj:`"mean"`, :obj:`"min"`, :obj:`"max"`,

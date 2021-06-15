@@ -18,7 +18,8 @@ class SAGEConv(MessagePassing):
 
     Args:
         in_channels (int or tuple): Size of each input sample. A tuple
-            corresponds to the sizes of source and target dimensionalities.
+            corresponds to the sizes of source and target dimensionalities. The
+            size can be -1 for lazy initialization.
         out_channels (int): Size of each output sample.
         normalize (bool, optional): If set to :obj:`True`, output features
             will be :math:`\ell_2`-normalized, *i.e.*,

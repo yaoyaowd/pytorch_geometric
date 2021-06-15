@@ -35,7 +35,8 @@ class FiLMConv(MessagePassing):
 
     Args:
         in_channels (int or tuple): Size of each input sample. A tuple
-            corresponds to the sizes of source and target dimensionalities.
+            corresponds to the sizes of source and target dimensionalities. The
+            size can be -1 for lazy initialization.
         out_channels (int): Size of each output sample.
         num_relations (int, optional): Number of relations. (default: :obj:`1`)
         nn (torch.nn.Module, optional): The neural network :math:`g` that

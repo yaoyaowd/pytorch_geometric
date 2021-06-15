@@ -43,7 +43,8 @@ class SignedConv(MessagePassing):
     the negative node features :math:`\mathbf{X}^{(\textrm{neg})}`.
 
     Args:
-        in_channels (int): Size of each input sample.
+        in_channels (int): Size of each input sample or -1 for lazy
+            initialization.
         out_channels (int): Size of each output sample.
         first_aggr (bool): Denotes which aggregation formula to use.
         bias (bool, optional): If set to :obj:`False`, the layer will not learn
